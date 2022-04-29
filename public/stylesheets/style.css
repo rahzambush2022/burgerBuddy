@@ -22,6 +22,20 @@ a {
   justify-content: space-between;
 }
 
+#sides-checkbox-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#beverages-checkbox-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 #banner {
   font-family: 'Smooch', cursive;
   font-size: 120px;
@@ -36,3 +50,43 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+#sides-wrapper {
+  margin: auto;
+  text-align: center;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
+#beverages-wrapper {
+  margin: auto;
+  text-align: center;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
+#user-status {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+[data-initials]:before {
+  background: #099bdd;
+  color: white;
+  opacity: 1; 
+  content: attr(data-initials); 
+  display: inline-block; 
+  font-weight: bold; 
+  border-radius: 50%; 
+  vertical-align: middle; 
+  margin-right: 0.5em; 
+  width: 50px; 
+  height: 50px; 
+  line-height: 50px; 
+  text-align: center; 
+  }
