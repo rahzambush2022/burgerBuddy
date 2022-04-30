@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 const burgerSchema = new Schema({
   bunType: String,
   pattyType: String,
-  basePrice: Number,
+  cheeseType: String,
   toppings: [
     { 
       type: mongoose.Schema.Types.ObjectId, 
-      ref: 'Topping',
+      ref: 'ToppingSet',
     },
   ],
 })
