@@ -15,6 +15,15 @@ a {
   width: 350px;
 }
 
+.bi-person-circle {
+  width: 50px; 
+  height: 50px;
+  font-size: 50px;
+  color: #099bdd;
+  margin-top: -12px;
+  px;
+}
+
 #checkbox-wrapper {
   display: flex;
   flex-direction: row;
