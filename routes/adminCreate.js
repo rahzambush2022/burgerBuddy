@@ -4,6 +4,10 @@ const Topping = require("../models/Topping");
 const Drink = require("../models/Drink");
 const Side = require("../models/Side");
 const Burger = require("../models/Burger");
+const Bun = require("../models/Bun");
+const Patty = require("../models/Patty");
+const Cheese = require("../models/Cheese");
+
 
 router.get('/topping', function(req, res, next) {
   res.render('adminCreateTopping');
@@ -70,6 +74,57 @@ router.post('/burger', async function(req, res, next) {
     newBurger.save((err) => {
         if(err) console.log(err);
         console.log('Burger saved');
+    })
+    res.render('index');
+});
+
+router.get('/bun', function(req, res, next) {
+  res.render('adminCreateBun');
+});
+
+router.post('/bun', async function(req, res, next) {
+    const newBun = await new Bun({
+        bunName: req.body.bunName,
+        bunPrice: req.body.bunPrice
+    });
+    console.log(newBun);
+    newBun.save((err) => {
+        if(err) console.log(err);
+        console.log('Bun saved');
+    })
+    res.render('index');
+});
+
+router.get('/patty', function(req, res, next) {
+  res.render('adminCreatePatty');
+});
+
+router.post('/patty', async function(req, res, next) {
+    const newPatty = await new Patty({
+        pattyName: req.body.pattyName,
+        pattyPrice: req.body.pattyPrice
+    });
+    console.log(newPatty);
+    newPatty.save((err) => {
+        if(err) console.log(err);
+        console.log('Patty saved');
+    })
+    res.render('index');
+});
+
+router.get('/cheese', function(req, res, next) {
+  res.render('adminCreateCheese');
+});
+
+router.post('/cheese', async function(req, res, next) {
+    const newCheese = await new Cheese({
+        cheeseName: req.body.cheeseName,
+        cheesePrice: req.body.cheesePrice
+    });
+    console.log(newCheese);
+    newCheese.save((err) => {
+        if(err) console.log(err);
+        console.log('Cheese saved');
     })
     res.render('index');
 });
