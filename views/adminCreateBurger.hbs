@@ -1,0 +1,28 @@
+<body>
+  <div class="container">
+    <main>
+      <h1>Create Burger</h1>
+      <div class="form">
+        <form action='/adminCreate/burger' method="POST">
+          <label for="bunType">Bun Type</label>
+            <select id="bunType" name="bunType">
+            <option value="1">1 - Plain</option>
+            <option value="2">2 - Brioche</option>
+            <option value="3">3 - Sesame</option>
+            <option value="4">4 - Lettuce</option>
+          </select>
+          <label for="pattyType">Patty Type</label>
+            <select id="pattyType" name="pattyType">
+            <option value="1">1 - Beef</option>
+            <option value="1">2 - Chicken</option>
+            <option value="2">3 - Veggie</option>
+          </select>
+          <label for="image">Base Price</label>
+          <input type="text" id="basePrice" name="basePrice">
+
+          <input type="submit" value="Create">
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
