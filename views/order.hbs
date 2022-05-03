@@ -15,11 +15,12 @@
 <html>
 <body>
 <div class='form'>
-  <div id="order-form-wrapper" style="width: 300px; margin:0, auto; text-align:center">
+  <div id="order-form-wrapper">
 
 <h1>Order Form</h1>
+<br>
   <form action='/users/order' method='POST'>
-    <h3>Select Bun Type</h3>
+    <h5>Choose Your <b>Bun Type</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "bunType">
       <option selected>Select Bun Type</option>
       <option value="Plain">Plain</option>
@@ -28,7 +29,7 @@
       <option value="Lettuce">Lettuce</option>
     </select>
     <br>
-    <h3>Select Protein Type</h3>  
+    <h5>Choose Your <b>Protein Type</b></h5>  
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "pattyType">
       <option selected>Select Patty Type</option>
       <option value="Beef">Beef</option>
@@ -36,15 +37,16 @@
       <option value="Veggie">Veggie</option>
     </select>
     <br>
-    <h3>Select Cheese</h3>
+    <h5>Choose Your <b>Cheese</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "cheeseType">
       <option selected>Select Cheese</option>
+      <option value="None">None</option>
       <option value="American">American</option>
       <option value="Swiss">Swiss</option>
       <option value="Vegan">Vegan</option>
     </select>
     <br>
-    <h3>Select Toppings</h3>
+    <h5>Choose Your <b>Toppings</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="firstTopping">
       <option selected>Select First Topping</option>
       <option value="None">None</option>
@@ -56,8 +58,9 @@
       <option value="Pickles">Pickles</option>
       <option value="BBQ Sauce">BBQ Sauce</option>
     </select>
-    <br><br>
+    <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="secondTopping">
+      <option selected>Select Second Topping</option>
       <option value="None">None</option>
       <option value="Bacon">Bacon</option>
       <option value="Jalapenos">Jalapenos</option>
@@ -67,7 +70,7 @@
       <option value="Pickles">Pickles</option>
       <option value="BBQ Sauce">BBQ Sauce</option>
     </select>
-    <br><br>
+    <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="thirdTopping">
       <option selected>Select Third Topping</option>
       <option value="None">None</option>
@@ -79,7 +82,7 @@
       <option value="Pickles">Pickles</option>
       <option value="BBQ Sauce">BBQ Sauce</option>
     </select>
-    <br><br>
+    <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="fourthTopping">
       <option selected>Select Fourth Topping</option>
       <option value="None">None</option>
@@ -92,10 +95,37 @@
       <option value="BBQ Sauce">BBQ Sauce</option>
     </select>
     <br>
-
-    <input type='submit' value='Add to Cart' style="margin-top: 10px" />
+    <h5>Select Your <b>Sides</b></h5>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="fourthTopping">
+      <option selected>Select Sides</option>
+      <option value="None">None</option>
+      <option value="Bacon">French Fries</option>
+      <option value="Jalapenos">Onion Rings</option>
+      <option value="Tomato">Coleslaw</option>
+    </select>
+    <br>
+    <h5>Choose Your <b>Beverages</b></h5>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="fourthTopping">
+      <option selected>Select Your Beverages</option>
+      <option value="None">None</option>
+      <option value="Pepsi">Pepsi</option>
+      <option value="Diet Pepsi">Diet Pepsi</option>
+      <option value="Root Beer">Root Beer</option>
+      <option value="Sprite">Sprite</option>
+      <option value="Water">Water</option>
+    </select>
+    <br>
+    <button type="button" class="btn btn-primary">Add to Cart</button>
+    {{!-- <input type='submit' value='Add to Cart' style="margin-top: 10px" /> --}}
+    <span>Qty</span>
+    <input type="number" value="1" min="1" max="99" step="1"/>
   </form>
   </div>
+  {{!-- Enable InputSpinner jQuery plugin --}}
+  <script src="src/bootstrap-input-spinner.js"></script>
+  <script>
+      $("input[type='number']").inputSpinner();
+  </script>
 </body>
 </html>
 
