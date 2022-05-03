@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -23,8 +23,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Rahul was here text",
   "devDependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahzambush2022/burgerBuddy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rahzambush2022/burgerBuddy/issues"
+  },
+  "homepage": "https://github.com/rahzambush2022/burgerBuddy#readme"
 }
