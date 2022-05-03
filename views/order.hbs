@@ -15,87 +15,94 @@
 <html>
 <body>
 <div class='form'>
-  <div id="order-form-wrapper" style="width: 300px; margin:0, auto; text-align:center">
+  <div id="order-form-wrapper">
 
 <h1>Order Form</h1>
+<br>
   <form action='/users/order' method='POST'>
-    <h3>Select Bun Type</h3>
+    <h5>Choose Your <b>Bun Type</b></h5>  
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "bunType">
       <option selected>Select Bun Type</option>
-      <option value="Plain">Plain</option>
-      <option value="Brioche">Brioche</option>
-      <option value="Sesame">Sesame</option>
-      <option value="Lettuce">Lettuce</option>
+      {{#each buns }}
+      {{> bunDIV buns=this}}
+      {{/each}}
     </select>
     <br>
-    <h3>Select Protein Type</h3>  
+    <h5>Choose Your <b>Protein</b></h5>  
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "pattyType">
       <option selected>Select Patty Type</option>
-      <option value="Beef">Beef</option>
-      <option value="Chicken">Chicken</option>
-      <option value="Veggie">Veggie</option>
+      {{#each patties }}
+      {{> pattyDIV patties=this}}
+      {{/each}}
     </select>
     <br>
-    <h3>Select Cheese</h3>
+    <h5>Choose Your <b>Cheese</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "cheeseType">
       <option selected>Select Cheese</option>
-      <option value="American">American</option>
-      <option value="Swiss">Swiss</option>
-      <option value="Vegan">Vegan</option>
+      <option value="None">None</option>
+      {{#each cheeses }}
+      {{> cheeseDIV cheeses=this}}
+      {{/each}}
     </select>
     <br>
-    <h3>Select Toppings</h3>
+    <h5>Choose Your <b>Toppings</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="firstTopping">
-      <option selected>Select First Topping</option>
-      <option value="None">None</option>
-      <option value="Bacon">Bacon</option>
-      <option value="Jalapenos">Jalapenos</option>
-      <option value="Tomato">Tomato</option>
-      <option value="Lettuce">Lettuce</option>
-      <option value="Onions">Onions</option>
-      <option value="Pickles">Pickles</option>
-      <option value="BBQ Sauce">BBQ Sauce</option>
+      {{#each toppings }}
+      {{> toppingDIV toppings=this}}
+      {{/each}}
     </select>
-    <br><br>
+    <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="secondTopping">
-      <option value="None">None</option>
-      <option value="Bacon">Bacon</option>
-      <option value="Jalapenos">Jalapenos</option>
-      <option value="Tomato">Tomato</option>
-      <option value="Lettuce">Lettuce</option>
-      <option value="Onions">Onions</option>
-      <option value="Pickles">Pickles</option>
-      <option value="BBQ Sauce">BBQ Sauce</option>
+      <option selected>Select Second Topping</option>
+      {{#each toppings }}
+      {{> toppingDIV toppings=this}}
+      {{/each}}
     </select>
-    <br><br>
+    <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="thirdTopping">
       <option selected>Select Third Topping</option>
       <option value="None">None</option>
-      <option value="Bacon">Bacon</option>
-      <option value="Jalapenos">Jalapenos</option>
-      <option value="Tomato">Tomato</option>
-      <option value="Lettuce">Lettuce</option>
-      <option value="Onions">Onions</option>
-      <option value="Pickles">Pickles</option>
-      <option value="BBQ Sauce">BBQ Sauce</option>
+      {{#each toppings }}
+      {{> toppingDIV toppings=this}}
+      {{/each}}
     </select>
-    <br><br>
+    <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="fourthTopping">
       <option selected>Select Fourth Topping</option>
       <option value="None">None</option>
-      <option value="Bacon">Bacon</option>
-      <option value="Jalapenos">Jalapenos</option>
-      <option value="Tomato">Tomato</option>
-      <option value="Lettuce">Lettuce</option>
-      <option value="Onions">Onions</option>
-      <option value="Pickles">Pickles</option>
-      <option value="BBQ Sauce">BBQ Sauce</option>
+      {{#each toppings }}
+      {{> toppingDIV toppings=this}}
+      {{/each}}
     </select>
     <br>
-
-    <input type='submit' value='Add to Cart' style="margin-top: 10px" />
+    <h5>Choose Your <b>Sides</b></h5>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%"  name="sideName">
+      <option selected>Select Sides</option>
+      {{#each sides }}
+      {{> sideDIV sides=this}}
+      {{/each}}
+    </select>
+    <br>
+    <h5>Choose Your <b>Beverages</b></h5>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%"  name = "drinkName">
+      <option selected>Select Your Beverages</option>
+      <option value="None">None</option>
+      {{#each drinks }}
+      {{> drinkDIV drinks=this}}
+      {{/each}}
+    </select>
+    <br>
+    {{!-- <button type="submit" class="btn btn-primary">Add to Cart</button> --}}
+    <input type='submit' value='Add to Cart' class="btn btn-primary"/>
+    <span>Qty</span>
+    <input type="number" value="1" min="1" max="99" step="1" name="quantity"/>
   </form>
   </div>
+  {{!-- Enable InputSpinner jQuery plugin --}}
+  <script src="src/bootstrap-input-spinner.js"></script>
+  <script>
+      $("input[type='number']").inputSpinner();
+  </script>
 </body>
 </html>
 

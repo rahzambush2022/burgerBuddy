@@ -4,12 +4,16 @@ const Order = require('../models/Order');
 const Topping = require('../models/Topping');
 const Burger = require('../models/Burger');
 const ToppingSet = require('../models/ToppingSet');
+const Drink = require('../models/Drink');
+const Side = require('../models/Side');
+const Patty = require('../models/Patty');
+const Cheese = require('../models/Cheese');
+const Bun = require('../models/Bun');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
+// router.get('/', function(req, res, next) {
+//   res.send('respond with a resource');
+// });
 
 /* GET users/adminLogin listing. */
 router.get('/adminLogin', function(req, res, next) {
@@ -24,13 +28,22 @@ router.get('/login', function(req, res, next) {
 });
 
 /* GET users/order listing. */
-router.get('/order', function(req, res, next) {
-  res.render('order');
+router.get('/order', async function(req, res, next) {
+  const toppings = await Topping.find({});
+  const drinks = await Drink.find({});
+  const sides = await Side.find({});
+  const cheeses = await Cheese.find({});
+  const patties = await Patty.find({});
+  const buns = await Bun.find({});
+  // console.log("buns: ", buns);
+
+  res.render('order', {toppings, drinks, sides, cheeses, patties, buns});
 });
 
 /* GET users/order listing. */
 router.post('/order', async function(req, res, next) {
-  const { bunType, pattyType, cheeseType, firstTopping, secondTopping, thirdTopping, fourthTopping } = req.body;
+  const { bunType, pattyType, cheeseType, firstTopping, secondTopping, thirdTopping, fourthTopping, sideName, drinkName, quantity } = req.body;
+  for(let i = 0; i < +quantity; i++){
   const newOrder = new Order ({item: []});
   const newBurger = new Burger({
     bunType: bunType,
@@ -43,34 +56,27 @@ router.post('/order', async function(req, res, next) {
     thirdTopping: thirdTopping,
     fourthTopping: fourthTopping
   });
+  const newSide = new Side({
+     sideName: sideName
+  });
+  const newDrink = new Drink({
+    drinkName: drinkName
+ });
   // console.log('bunType is '+ newBurger.bunType);
-  console.log('burger is ' + newBurger);
-  console.log('toppingSet is ' + newToppingSet);
+  // console.log('drink is '+ newDrink)
+  // console.log('side is '+ newSide);
+  // console.log('burger is ' + newBurger);
+  // console.log('toppingSet is ' + newToppingSet);
+  console.log(quantity);
 
-  // if(req.body.firstTopping !== 'None'){
-  //   const firstTopping = await Topping.findOne({name: firstTopping});
-  //   // console.log('First topping is ' + firstTopping);
-  //   newBurger.toppings.push(firstTopping);
-  // }
-  // if(req.body.secondTopping !== 'None'){
-  //   const secondTopping = await Topping.findOne({name: secondTopping});
-  //   // console.log('Second topping is ' + secondTopping);
-  //   newBurger.toppings.push(secondTopping);
-  // }
-  // if(req.body.thirdTopping !== 'None'){
-  //   const thirdTopping = await Topping.findOne({name: thirdTopping});
-  //   // console.log('Third topping is ' + thirdTopping);
-  //   newBurger.toppings.push(thirdTopping);
-  // }
-  // if(req.body.fourthTopping !== 'None'){
-  //   const fourthTopping = await Topping.findOne({name: fourthTopping});
-  //   // console.log('Fourth topping is ' + fourthTopping);
-  //   newBurger.toppings.push(fourthTopping);
-  // }
-  // console.log('toppings are' + newBurger.toppings)
-  // newOrder.items.push(newBurger);
-  // console.log('order is ' + newOrder);
-
+  newOrder.items.push(newBurger);
+  newOrder.items.push(newToppingSet);
+  newOrder.items.push(newSide);
+  newOrder.items.push(newDrink);
+  console.log('order is ' + newOrder);
+  
+  await newOrder.save();
+  }
 
   res.render('order');
 }); 

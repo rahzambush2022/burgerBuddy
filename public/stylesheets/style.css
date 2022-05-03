@@ -84,6 +84,14 @@ a {
   justify-content: flex-end;
 }
 
+#order-form-wrapper {
+  margin: auto;
+  text-align: center;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
 [data-initials]:before {
   background: #099bdd;
   color: white;
