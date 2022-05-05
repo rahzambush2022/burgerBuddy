@@ -62,23 +62,71 @@ router.post('/order', async function(req, res, next) {
   const newDrink = new Drink({
     drinkName: drinkName
  });
-  // console.log('bunType is '+ newBurger.bunType);
-  // console.log('drink is '+ newDrink)
-  // console.log('side is '+ newSide);
-  // console.log('burger is ' + newBurger);
-  // console.log('toppingSet is ' + newToppingSet);
-  console.log(quantity);
 
   newOrder.items.push(newBurger);
   newOrder.items.push(newToppingSet);
   newOrder.items.push(newSide);
   newOrder.items.push(newDrink);
-  console.log('order is ' + newOrder);
+  // console.log('order is ' + newOrder);
   
-  await newOrder.save();
+  // await newOrder.save();
   }
 
-  res.render('order');
+  let orders = await Order.find({}).lean();
+    // let orderId;
+    // let orderBunType;
+    // let orderPattyType;
+    // let orderCheeseType;
+    // let orderFirstTopping;
+    // let orderSecondTopping;
+    // let orderThirdTopping;
+    // let orderFourthTopping;
+    // let orderSide;
+    // let orderDrink;
+    // let orderSummary="test";
+    // console.log("length: ", orders.length);
+    // for (let i=0; i<orders.length; i++) {
+
+    //   orderId = order._id;
+    //   orderBunType = order.items[0].bunType;
+    //   console.log("bunType: ", orderBunType);
+    //   orderPattyType = order.items[0].pattyType;
+    //   orderCheeseType = order.items[0].cheeseType;
+    //   orderFirstTopping = order.items[1].firstTopping;
+    //   orderSecondTopping = order.items[1].secondTopping;
+    //   orderThirdTopping = order.items[1].thirdTopping;
+    //   orderFourthTopping = order.items[1].fourthTopping;
+    //   orderSide = order.items[2].sideName;
+    //   orderDrink = order.items[3].drinkName;
+
+    // }
+  // orders.forEach(order => {
+  //   // orderSummary = `orderBunType\norderPattyType\norderCheeseType\norderFirstTopping\norderSecondTopping\norderThirdTopping\norderFourthTopping\norderBunType\norderSide\norderDrink`
+  // });
+  // console.log("orders are "+ orders);
+  res.render('cart', {orders:orders});
 }); 
+
+// router.get('/cart', async function(req, res, next) {
+//   const orders = await Order.find({});
+//   console.log(orders);
+//   res.render('cart', {orders});
+// });
+
+// router.get('/cart', async function(req, res, next) {
+//   const orders = await Order.deleteMany({}, function ( err ) {
+//     console .log( "success" );
+//   });
+//   res.render('order');
+// });
+
+// Student.deleteMany({}, function ( err ) {
+//   console .log( "success" );
+// });
+
+router.post('/cart', async function(req, res, next) {
+  const orders = await Order.find({});
+  res.render('cart', {orders});
+});
 
 module.exports = router;

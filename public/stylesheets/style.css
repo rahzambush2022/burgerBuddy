@@ -21,8 +21,14 @@ a {
   font-size: 50px;
   color: #099bdd;
   margin-top: -12px;
-  px;
 }
+
+.header-wrapper {
+  margin: auto;
+  text-align: center;
+  width: 350px;
+}
+
 
 #checkbox-wrapper {
   display: flex;

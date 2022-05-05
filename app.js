@@ -38,6 +38,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials')
 
+// register toFixed helper function
+hbs.registerHelper('toFixed', function(number, digits) {
+  return Number(number).toFixed(digits);
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
