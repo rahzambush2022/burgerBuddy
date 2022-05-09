@@ -1,0 +1,54 @@
+<html lang='en'>
+	<head>
+		<meta charset='UTF-8' />
+		<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+		<title>Document</title>
+	</head>
+	<header>
+  <div id="burger-wrapper">
+    <img src="/images/logo.png" alt="Burger Buddy Logo" style="margin: auto; text-align: center; width: 38%">
+  </div>
+
+  <nav class="navbar  navbar-light bg-light" style="margin-top: 20px">
+    <div class="container-fluid">
+
+      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div id="user-status" >
+        <span id="user-"class="bi bi-person-circle"></span>
+        <button class="btn default">Login</button>
+        <div data-initials="TP"></div>
+        <button class="btn default">Logout</button>
+        {{!-- <ion-icon name="cart-outline" size="large" style="padding-top: 10px"></ion-icon> --}}
+        <i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i>
+      </div>
+    </div>
+  </nav>
+  <br>
+</header>
+	<body>
+		<h1>Admin Register Form</h1>
+		{{#if errors}}
+			{{#each errors}}
+				<p class='alert alert-danger'>{{this.msg}}</p>
+			{{/each}}
+		{{/if}}
+		<div class='form'>
+			<form action='/auth/adminRegister' method='POST'>
+				<label for='username'>Username</label>
+				<input type='text' id='username' name='username' />
+
+				<label for='password'>Password</label>
+				<input type='password' id='password' name='password' />
+
+				<label for='repeatPassword'>Re-Password</label>
+				<input type='password' id='repeatPassword' name='repeatPassword' />
+
+				<input type='submit' value='Register' />
+			</form>
+		</div>
+	</body>
+</html>

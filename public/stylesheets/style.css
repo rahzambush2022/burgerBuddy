@@ -21,8 +21,12 @@ a {
   font-size: 50px;
   color: #099bdd;
   margin-top: -12px;
-  px;
 }
+
+.alert.alert-danger {
+  color: red;
+}
+
 
 #checkbox-wrapper {
   display: flex;

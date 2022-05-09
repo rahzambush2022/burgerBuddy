@@ -20,20 +20,19 @@
   <nav class="navbar  navbar-light bg-light" style="margin-top: 20px">
     <div class="container-fluid">
 
-      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="display: none">
+      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a href="/"><button class="btn default" style="margin-top: 8px">Home</button></a>
+
       <div id="user-status" >
         {{#if loggedIn}}
         <div data-initials={{initials}}></div>
-        <a href="/auth/logout"></a><button class="btn default">Logout</button></a>
+        <button class="btn default">Logout</button>
         {{else}}
         <span id="user-"class="bi bi-person-circle"></span>
-        <a href="/auth/login"></a><button class="btn default">Login</button></a>
+        <button class="btn default">Login</button>
         {{/if}}
-        {{!-- <ion-icon name="cart-outline" size="large" style="padding-top: 10px"></ion-icon> --}}
-        <a href="/users/cart"><i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i></a>
+        <i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i>
       </div>
     </div>
   </nav>
@@ -43,17 +42,12 @@
 <div class='form'>
   <div id="order-form-wrapper">
 
-<h1>Order Form</h1>
-<br>
-{{# if errors }}
-        {{# each errors }}
-          <p class="alert alert-danger">{{ this.msg }}</p>
-        {{/each}}
-      {{/if}}
-  <form action='/users/order' method='POST'>
+  <h1>Edit Order Form</h1>
+  <br>
+  <form action="/users/editOrder/{{order.id}}" method="POST">
     <h5>Choose Your <b>Bun Type</b></h5>  
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "bunType">
-      <option selected>Select Bun Type</option>
+      <option selected>{{order.bunType}}</option>
       {{#each buns }}
       {{> bunDIV buns=this}}
       {{/each}}
@@ -61,7 +55,7 @@
     <br>
     <h5>Choose Your <b>Protein</b></h5>  
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "pattyType">
-      <option selected>Select Patty Type</option>
+      <option selected>{{order.pattyType}}</option>
       {{#each patties }}
       {{> pattyDIV patties=this}}
       {{/each}}
@@ -69,7 +63,7 @@
     <br>
     <h5>Choose Your <b>Cheese</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name = "cheeseName">
-      <option selected>Select Cheese</option>
+      <option selected>{{order.cheeseName}}</option>
       {{#each cheeses }}
       {{> cheeseDIV cheeses=this}}
       {{/each}}
@@ -77,62 +71,54 @@
     <br>
     <h5>Choose Your <b>Toppings</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="firstTopping">
-      <option selected>Select First Topping</option>
+      <option selected>{{order.firstTopping}}</option>
       {{#each toppings }}
       {{> toppingDIV toppings=this}}
       {{/each}}
     </select>
     <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="secondTopping">
-      <option selected>Select Second Topping</option>
+      <option selected>{{order.secondTopping}}</option>
       {{#each toppings }}
       {{> toppingDIV toppings=this}}
       {{/each}}
     </select>
     <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="thirdTopping">
-      <option selected>Select Third Topping</option>
+      <option selected>{{order.thirdTopping}}</option>
+      <option value="None">None</option>
       {{#each toppings }}
       {{> toppingDIV toppings=this}}
       {{/each}}
     </select>
     <br>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%" name ="fourthTopping">
-      <option selected>Select Fourth Topping</option>
+      <option selected>{{order.fourthTopping}}</option>
+      <option value="None">None</option>
       {{#each toppings }}
       {{> toppingDIV toppings=this}}
       {{/each}}
     </select>
     <br>
-    <h5>Choose Your <b>Side</b></h5>
+    <h5>Choose Your <b>Sides</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%"  name="sideName">
-      <option selected>Select Side</option>
+      <option selected>{{order.sideName}}</option>
       {{#each sides }}
       {{> sideDIV sides=this}}
       {{/each}}
     </select>
     <br>
-    <h5>Choose Your <b>Beverage</b></h5>
+    <h5>Choose Your <b>Beverages</b></h5>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 90%"  name = "drinkName">
-      <option selected>Select Beverage</option>
+      <option selected>{{order.drinkName}}</option>
       <option value="None">None</option>
       {{#each drinks }}
       {{> drinkDIV drinks=this}}
       {{/each}}
     </select>
     <br>
-    <input type='submit' value='Add to Cart' class="btn btn-primary"/>
-    <span>Qty</span>
-    <input type="number" value="1" min="1" max="99" step="1" name="quantity"/>
+    <input type='submit' value='Confirm Edits' class="btn btn-primary"/>
   </form>
-  </div>
-  {{!-- Enable InputSpinner jQuery plugin --}}
-  <script src="src/bootstrap-input-spinner.js"></script>
-  <script>
-      $("input[type='number']").inputSpinner();
-  </script>
+  </div> 
 </body>
 </html>
-
-
-
