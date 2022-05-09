@@ -29,7 +29,7 @@
       <div id="user-status" >
         {{#if loggedIn}}
         <div data-initials={{initials}}></div>
-        <button class="btn default">Logout</button>
+        <a href="/auth/logout"></a><button class="btn default">Logout</button></a>
         {{else}}
         <span id="user-"class="bi bi-person-circle"></span>
         <button class="btn default">Login</button>
@@ -43,15 +43,20 @@
 <body>
   <div class='form'>
     <div id='order-form-wrapper'>
-    <h1>Order Confirmed</h1>
+    <h2>Your Order's In!</h2>
+    <h3>Ready for Pickup in 20 min</h3>
     {{#each orders}}
       {{> orderDIV order=this}}
     {{/each}}
+
+    {{#if usedReward}}
+        <h4>Reward used: ${{usedRewardValue}} Off<h4>
+        {{/if}}
     <h3 style="margin-top: 20px">Grand Total: ${{toFixed grandTotal 2}}</h3>
     <br>
-    <h3 style="margin-top: 20px">Reward Points Earned: {{rewardsEarned}}</h3>
+    <h4 style="margin-top: 20px">Reward Points Earned: {{rewardsEarned}}</h4>
     <br>
-    <h3 style="margin-top: 20px">Total Reward Points: {{rewardPoints}}</h3>
+    <h4 style="margin-top: 20px">Total Reward Points: {{rewardPoints}}</h4>
      
     </div>
   </div>

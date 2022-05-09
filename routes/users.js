@@ -16,8 +16,6 @@ const flash = require('connect-flash');
 const verifyUser = require('../middleware/verifyUser');
 const session = require('express-session');
 
-// const orderValidator = require('../middleware/orderValidator');
-
 
 /* GET users/order listing. */
 router.get('/order', verifyUser, async function(req, res, next) {
@@ -104,12 +102,9 @@ router.post('/order', verifyUser, async function(req, res, next) {
     });
     await newOrder.save();
   }
-  // let orders = await Order.find({}).lean();
-  // res.render('cart', {orders:orders});
   
   req.session.context = initials;
     req.session.success = true;
-    // res.render('cart', {orders:orders});
     res.redirect('/users/cart');
  }
 
@@ -118,19 +113,38 @@ router.post('/order', verifyUser, async function(req, res, next) {
 router.get('/cart', verifyUser, async function(req, res, next) {
   let loggedIn = res.loggedIn;
   let initials = req.session.context;
+  let id = req.session.userID;
+  let usedReward = false;
+  let usedRewardValue = 0;
+  let user = await User.findById({_id: id});
+  console.log("user is " + user)
+  console.log('Points are' + user.rewardPoints);
+  if(+user.rewardPoints >= +100){
+    usedReward = true;
+  }
   let grandTotal = 0
-  console.log(initials);
   const orders = await Order.find({}).lean();
   orders.forEach(a => {
     grandTotal += +a.subTotal;
   })
+  if(usedReward === true){
+    if(grandTotal < 10){
+      grandTotal = 0
+      usedRewardValue = Math.floor(grandTotal);
+    }else{
+      grandTotal-= 10;
+      usedRewardValue = 10;
+    }
+  }
+
   console.log("Grand total is:" + grandTotal);
-  res.render('cart', {loggedIn, initials, grandTotal, orders:orders});
+  res.render('cart', {usedReward, usedRewardValue, loggedIn, initials, grandTotal, orders:orders});
 });
 
 
 router.post('/cart', verifyUser, async function(req, res, next) {
   let grandTotal = 0;
+  let usedReward = false;
   const orders = await Order.find({}).lean();
   orders.forEach(a => {
     grandTotal += +a.subTotal;
@@ -138,30 +152,29 @@ router.post('/cart', verifyUser, async function(req, res, next) {
   let id = req.session.userID;
   let user = await User.findById({_id: id});
   console.log(user);
-  let rewards = Math.floor(grandTotal);
-  console.log(rewards)
-  let newTotal = user.rewardPoints += rewards;
-  user.rewardPoints = newTotal;
+  if(user.rewardPoints > 100){
+    usedReward = true;
+  }
+  if(usedReward === true){
+    if(grandTotal < 10){
+      grandTotal = 0
+      user.rewardPoints = user.rewardPoints - (Math.floor(grandTotal) * 10);
+    }else{
+      grandTotal-= 10;
+      user.rewardPoints = user.rewardPoints - 100;
+    }
+    
+  }
+  let earnedRewards = Math.floor(grandTotal);
+  console.log(earnedRewards)
+  let newTotalRewards = user.rewardPoints += earnedRewards;
+  user.rewardPoints = newTotalRewards;
   console.log(user);
   console.log('Users points are now:' + user.rewardPoints);
   await user.save((err) => {
     if (err) console.log(err);
     console.log("Rewards added");
   });
-  // let updatedOrder = await Order.findByIdAndUpdate({_id: id});
-  // console.log(updatedOrder);
-  // updatedOrder.rewardPoints = user.rewardPoints;
-
-  // await updatedOrder.save((err) => {
-  //   if (err) console.log(err);
-  //   console.log("Order edited");
-  // });
-  let orderCopy = orders;
-  await Order.deleteMany({});
-  console.log('Orders placed and removed');
-  
-  
-  // res.render('confirmation', {orders:orderCopy});
   res.redirect('/users/confirmation');
 });
 
@@ -188,12 +201,8 @@ router.post('/editOrder/:id', async function (req, res, next) {
 	const { bunType, pattyType, cheeseName, firstTopping, secondTopping, thirdTopping, fourthTopping, sideName, drinkName, quantity } = req.body;
 
   const selectedBun = await Bun.findOne({bunType: bunType}).exec();
-  // console.log("ln 161 selectedBun: ", bunType );
-  // console.log("ln 162 selectedBun.bunPrice: ", selectedBun.bunPrice );
   const selectedPatty = await Patty.findOne({pattyType: pattyType}).exec();
   const selectedCheese = await Cheese.findOne({cheeseName: cheeseName}).exec();
-  // console.log("ln 165 selectedCheese: ", selectedCheese);
-  // console.log("ln 166 selectedCheese.cheesePrice: ", selectedCheese.cheesePrice );
   const selectedFirstTopping = await Topping.findOne({toppingType: firstTopping}).exec();
   const selectedSecondTopping = await Topping.findOne({toppingType: secondTopping}).exec();
   const selectedThirdTopping = await Topping.findOne({toppingType: thirdTopping}).exec();
@@ -202,8 +211,6 @@ router.post('/editOrder/:id', async function (req, res, next) {
   const selectedDrink = await Drink.findOne({drinkType: drinkName}).exec();
 
   
-  const orderSubTotal = (selectedBun.bunPrice+selectedPatty.pattyPrice+selectedCheese.cheesePrice+selectedFirstTopping.toppingPrice+selectedSecondTopping.toppingPrice+selectedThirdTopping.toppingPrice+selectedFourthTopping.toppingPrice+selectedSide.sidePrice+selectedDrink.drinkPrice);
-
   newOrder = await Order.findByIdAndUpdate(req.params.id, req.body);
   newOrder.bunPrice = selectedBun.bunPrice;
   newOrder.pattyPrice = selectedPatty.pattyPrice; 
@@ -245,6 +252,8 @@ router.post('/delete/:id', async function(req, res, next) {
 router.get('/confirmation', verifyUser, async function(req, res, next) {
   let loggedIn = res.loggedIn;
   let initials = req.session.context; 
+  let usedReward = false;
+  let usedRewardValue = 0;
   let id = req.session.userID;
   let user = await User.findById({_id: id}).lean();
   let rewardPoints = user.rewardPoints; 
@@ -254,9 +263,25 @@ router.get('/confirmation', verifyUser, async function(req, res, next) {
   orders.forEach(a => {
     grandTotal += +a.subTotal;
   })
+  if(user.rewardPoints > 100){
+    usedReward = true;
+  }
+  if(usedReward === true){
+    if(grandTotal < 10){
+      grandTotal = 0
+      usedRewardValue = Math.floor(grandTotal);
+    }else{
+      grandTotal-= 10;
+      usedRewardValue = 10;
+    }
+  }
   let rewardsEarned = Math.floor(grandTotal);
   console.log("Grand total is:" + grandTotal);
-  res.render('confirmation', {loggedIn, initials, grandTotal, rewardPoints, rewardsEarned, orders:orders});
+  console.log('orders are', + orders)
+  let orderCopy = orders;
+  await Order.deleteMany({});
+  console.log('orders deleted');
+  res.render('confirmation', {loggedIn, initials, grandTotal, rewardPoints, rewardsEarned, usedReward, usedRewardValue, orders:orderCopy});
 });
 
 router.post('/confirmation', async function(req, res, next) {

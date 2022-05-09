@@ -20,7 +20,7 @@
   <nav class="navbar  navbar-light bg-light" style="margin-top: 20px">
     <div class="container-fluid">
 
-      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="display: hidden">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -48,9 +48,13 @@
         <a href="/auth/logout"><button class="btn default">Logout</button></a>
         {{else}}
         <span id="user-"class="bi bi-person-circle"></span>
-        <a href="/auth/login"><button class="btn default">Login</button></a>
+        <a href="/auth/login"><button class="btn default" style="margin-top: 5px">Login</button></a>
         {{/if}}
+        {{#if loggedIn}}
         <a href="/users/cart"><i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i></a>
+        {{else}}
+        <a href="/auth/login"><i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i></a>
+        {{/if}}
       </div>
     </div>
   </nav>

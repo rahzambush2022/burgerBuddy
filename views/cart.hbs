@@ -22,14 +22,16 @@
   <nav class="navbar  navbar-light bg-light" style="margin-top: 20px">
     <div class="container-fluid">
 
-      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="display: none">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <a href="/"><button class="btn default" style="margin-top: 8px">Home</button></a>
+      <a href="/users/order"><button class="btn default" style="margin-top: 8px">Add Order</button></a>
 
       <div id="user-status" >
         {{#if loggedIn}}
         <div data-initials={{initials}}></div>
-        <button class="btn default">Logout</button>
+        <a href="/auth/logout"><button class="btn default">Logout</button></a>
         {{else}}
         <span id="user-"class="bi bi-person-circle"></span>
         <button class="btn default">Login</button>
@@ -50,22 +52,27 @@
     <h5 class="card-title">Order</h5>
     {{#each orders}}
       {{> orderDIV order=this}}
-      <a href="/users/editOrder/{{this._id}}" class="btn btn-secondary">Edit Order</a>
-      <a href="/users/delete/{{this._id}}" class="btn btn-secondary">Remove Order</a>
+      <a href="/users/editOrder/{{this._id}}" class="btn btn-secondary" style="margin-top: 10px">Edit Order</a>
+      <a href="/users/delete/{{this._id}}" class="btn btn-secondary" style="margin-top: 10px">Remove Order</a>
+      <br>
       {{else}}
-      <h1>No orders, try adding one<h1>
+      <h2>No orders, try adding one<h2>
     {{/each}}
+    <br>
+    {{#if orders}}
+    {{#if usedReward}}
+        <h4>Reward used: ${{usedRewardValue}} Off<h4>
+        {{/if}}
+      <form action="/users/cart" method="POST">
+      <input type='submit' value='Confirm Order' class="btn btn-primary" style="width: 150px; margin: 15px auto; text-align: center"/>
+      </form>
+    
+    {{/if}}
+    
     <h4 style="margin-top: 20px">Grand Total: ${{toFixed grandTotal 2}}</h4>
-    {{!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> --}}
   </div>
-  <form action="/users/cart" method="POST">
-  <input type='submit' value='Confirm Order' class="btn btn-primary" style="width: 150px; margin: auto; text-align: center"/>
-  </form>
-  {{!-- <a href="/users/confirmation/{{this._id}}" class="btn btn-primary" style="width: 150px; margin: auto; text-align: center">Confirm Order</a> --}}
   <br>
 </div>
-
-
     </div>
   </div>
   
