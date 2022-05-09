@@ -3,11 +3,21 @@ const User = require('../models/User')
 const secret = process.env.SECRET;
 const jwt = require('jsonwebtoken')
 const verifyUser = require('../middleware/verifyUser')
+const session = require('express-session');
+
 
 async function verifyToken(req, res, next) {
   let { username, password } = req.body
   let token;
   console.log("req.body: ", req.body);
+  const user = await User.findOne({ username: username }).lean();
+	const firstName = user.firstname;
+	const lastName = user.lastname;
+	const fullName = firstName + " " + lastName;
+	console.log('fullName: ', fullName);
+
+	
+  
 
   try {
     if (!username || !password ) {
@@ -16,7 +26,7 @@ async function verifyToken(req, res, next) {
 
     let user;
     user = await User.findOne({username: username})
-    // console.log(user);
+    // console.log(user); 
     if (!user) {
       return res.render("login", {message: "Username not found!"})
     }
@@ -26,7 +36,7 @@ async function verifyToken(req, res, next) {
       return res.render("login", {message: "Password not a match!"})
     }
     // console.log("Found user and signed in!");
-    token = jwt.sign({id: user._id, role: "user"}, secret)
+    token = jwt.sign({id: user._id, role: "user"}, secret);
     res.cookie("tokenLogin", token)
     console.log({token, user: {id: user._id, username: username}});
 

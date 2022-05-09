@@ -23,10 +23,8 @@ a {
   margin-top: -12px;
 }
 
-.header-wrapper {
-  margin: auto;
-  text-align: center;
-  width: 350px;
+.alert.alert-danger {
+  color: red;
 }
 
 

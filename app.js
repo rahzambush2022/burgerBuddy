@@ -10,13 +10,18 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const saltRounds = +process.env.SALT; //10
 const jwt = require('jsonwebtoken');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
 
 const app = express();
+app.use(expressValidator());
+app.use(flash());
 
 // ROUTES
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const createRouter = require('./routes/adminCreate');
+const authRouter = require('./routes/auth');
 // const burgerRouter = require('./routes/burger');
 // const toppingsRouter = require('./routes/toppings');
 // const extrasRouter = require('./routes/extras'); // sides + drinks
@@ -58,9 +63,12 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/adminCreate', createRouter);
+app.use('/auth', authRouter);
+
 // app.use('/burger', burgerRouter);
 // app.use('/toppings', toppingsRouter);
 // app.use('/extras', extrasRouter);

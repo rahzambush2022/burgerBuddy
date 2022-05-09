@@ -28,3 +28,59 @@
       <option value="Root Beer">Root Beer</option>
       <option value="Sprite">Sprite</option>
       <option value="Water">Water</option>
+
+      if (bunType == "Select Bun Type") {
+        console.log("bunType: ", bunType);
+        return res.render('order', {message: "This field is Required"})
+      } 
+      if (pattyType == "Select Patty Type") {
+        return res.render('order', {message2: "This field is Required"})
+      } 
+      if (cheeseType == "Select Cheese") {
+        return res.render('order', {message3: "This field is Required"})
+      } 
+      if (firstTopping == "Select First Topping") {
+        return res.render('order', {message4: "This field is Required"})
+      } 
+      if (secondTopping == "Select Second Topping") {
+        return res.render('order', {message5: "This field is Required"})
+      } 
+      if (thirdTopping == "Select Third Topping") {
+        return res.render('order', {message6: "This field is Required"})
+      } 
+      if (fourthTopping == "Select Fourth Topping") {
+        return res.render('order', {message: "This field is Required"})
+      } 
+      if (sideName == "Choose Your Side") {
+        return res.render('order', {message: "This field is Required"})
+      } 
+      if (drinkName == "Choose Your Beverage") {
+        return res.render('order', {message: "This field is Required"})
+      } 
+
+      let order;
+      let orders;
+      const id = req.params.id;
+      console.log("ln 171 req.body: ", req.body);
+      order = await Order.findByIdAndUpdate({ _id: id }, req.body).exec();
+      orders = await Order.find({});
+      console.log("Edits confirmed!");
+    
+      console.log("ln_172 order: ", order);
+      res.render('cart', { orders });
+    }); 
+
+<ul>
+  <li value="{{order._id}}"><span>Order #:&nbsp</span>{{order._id}}</li>  
+  <li value="{{order._id}}">{{bunType}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed bunPrice 2}}</li>
+  <li value="{{order._id}}">{{pattyType}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed pattyPrice 2}}</li>
+  <li value="{{order._id}}">{{cheeseName}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed cheesePrice 2}}</li>
+  <li value="{{order._id}}">{{firstTopping}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed firstToppingPrice 2}}</li>
+  <li value="{{order._id}}">{{secondTopping}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed secondToppingPrice 2}}</li>
+  <li value="{{order._id}}">{{thirdTopping}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed thirdToppingPrice 2}}</li>
+  <li value="{{order._id}}">{{fourthTopping}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed fourthToppingPrice 2}}</li>
+  <li value="{{order._id}}">{{sideName}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed sidePrice 2}}</li>
+  <li value="{{order._id}}">{{drinkName}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed drinkPrice 2}}</li>
+  <li value="{{order._id}}"><span>SUBTOTAL:</span><span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{toFixed subTotal 2}}</li>
+  </ul>
+      

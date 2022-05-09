@@ -15,38 +15,53 @@
     <link href="/public/stylesheets/style.css" type="text/css" rel="stylesheet">
 </head>
 <header>
-
-</header>
-<body>
   <h1 id="banner" style="margin: auto; text-align: center">Burger Buddy</h1>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 20px">
-  <div class="container-fluid">
+  <nav class="navbar  navbar-light bg-light" style="margin-top: 20px">
+    <div class="container-fluid">
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div id="user-status">
-    <span id="user-"class="bi bi-person-circle"></span>
-    <div data-initials="TP"></div>
-    <button class="btn default">Login</button>
-    <button class="btn default">Logout</button>
-    <ion-icon name="cart-outline" size="large" style="padding-top: 10px"></ion-icon>
-    <i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i>
-  </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
 
-  </div>
-</nav>
-
-
-
+      <div id="user-status" >
+        {{#if loggedIn}}
+        <div data-initials={{initials}}></div>
+        <a href="/auth/logout"><button class="btn default">Logout</button></a>
+        {{else}}
+        <span id="user-"class="bi bi-person-circle"></span>
+        <a href="/auth/login"><button class="btn default">Login</button></a>
+        {{/if}}
+        <a href="/users/cart"><i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i></a>
+      </div>
+    </div>
+  </nav>
   <br>
+</header>
+<body>
   <h2 style="text-align: center">Create Your Own Burger</h2>
   <br>
     <div id="burger-wrapper">
     <img src="/images/burger-fries.png" alt="Hamburger Meal">
-  </div>
+    </div>
     <br>
   <div class="button-container">
     <form action="/users/order" method="GET">

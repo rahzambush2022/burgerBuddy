@@ -16,15 +16,34 @@
 </head>
 
 <header>
-  <div class='header-wrapper'>
-  <img class='logo' src='/images/logo.png' style="width: 34%" />
+  <div id="burger-wrapper">
+    <img src="/images/logo.png" alt="Burger Buddy Logo" style="margin: auto; text-align: center; width: 38%">
   </div>
-</header> 
+
+  <nav class="navbar  navbar-light bg-light" style="margin-top: 20px">
+    <div class="container-fluid">
+
+      <button class="navbar-toggler" type="button" data-bs-target="openNav()" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div id="user-status" >
+        <span id="user-"class="bi bi-person-circle"></span>
+        <button class="btn default">Login</button>
+        <div data-initials="TP"></div>
+        <button class="btn default">Logout</button>
+        {{!-- <ion-icon name="cart-outline" size="large" style="padding-top: 10px"></ion-icon> --}}
+        <i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i>
+      </div>
+    </div>
+  </nav>
+  <br>
+</header>
 
 <body>
   <h1>Login Form</h1>
   <div class='form'>
-    <form action='/users/login' method='POST'>
+    <form action='/auth/login' method='POST'>
       <label for='username'>Username</label>
       <input type='text' id='username' name='username' />
 

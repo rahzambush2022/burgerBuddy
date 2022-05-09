@@ -1,3 +1,46 @@
-<ul>
-<li value="{{order._id}}">{{#with items}}{{drinkName}}{{/with}}<span>&nbsp;&nbsp;&nbsp</span><span>$</span>{{items}}</li>
-</ul>
+<table style="width:98%; display: flex; flex-direction: row; justify-content: space-around">
+  <tr value="{{order._id}}">
+    <td><span>Order #:&nbsp</span>{{order._id}}</td>
+  </tr>
+  <div style="width: 75%; margin: auto; text-align: center" >
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{bunType}}</td>
+      <td>{{toFixed bunPrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{pattyType}}</td>
+      <td>{{toFixed pattyPrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{cheeseName}}</td>
+      <td>{{toFixed cheesePrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{firstTopping}}</td>
+      <td>{{toFixed firstToppingPrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{secondTopping}}</td>
+      <td>{{toFixed secondToppingPrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{thirdTopping}}</td>
+      <td>{{toFixed firstToppingPrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{fourthTopping}}</td>
+      <td>{{toFixed fourthToppingPrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{sideName}}</td>
+      <td>{{toFixed sidePrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left">{{drinkName}}</td>
+      <td>{{toFixed drinkPrice 2}}</td>
+    </tr>
+    <tr value="{{order._id}}">
+      <td style="text-align: left"><span>SUBTOTAL:</span></td>
+      <td>{{toFixed subTotal 2}}</td>
+  </div>
+</table>
