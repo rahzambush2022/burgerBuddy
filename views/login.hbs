@@ -12,7 +12,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Spartan&display=swap" rel="stylesheet">
     <!-- CSS Stylesheet -->
-    <link href="/public/stylesheets/style.css" type="text/css" rel="stylesheet">
+    <link href="/stylesheets/style.css" type="text/css" rel="stylesheet">
 </head>
 
 <header>
@@ -48,6 +48,9 @@
 
 <body>
   <h1>Login Form</h1>
+  {{#if message}}
+    <p class="alert alert-danger">{{message}}</p>
+  {{/if}}
   <div class='form'>
     <form action='/auth/login' method='POST'>
       <label for='username'>Username</label>
