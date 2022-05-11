@@ -9,7 +9,10 @@ async function verifyToken(req, res, next) {
   let { username, password } = req.body;
   let token;
   console.log("req.body: ", req.body);
+
   const user = await User.findOne({ username: username }).lean();
+
+  
   const firstName = user.firstname;
   const lastName = user.lastname;
   const fullName = firstName + " " + lastName;
