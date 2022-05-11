@@ -327,6 +327,7 @@ router.get("/delete/:id", verifyUser, async function (req, res, next) {
   let initials = req.session.context;
   let id = req.params.id;
   let order = await Order.findById({ _id: id });
+  console.log(order);
   res.render("delete", { loggedIn, initials, order: order });
 });
 
@@ -334,7 +335,6 @@ router.post("/delete/:id", async function (req, res, next) {
   const id = req.params.id;
   let deleteOrder = await Order.findById({ _id: id });
   deleteOrder = await Order.deleteOne({ _id: id });
-  req.session.context = initials;
   res.redirect("/users/cart");
 });
 

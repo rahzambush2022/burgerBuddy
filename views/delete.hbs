@@ -12,7 +12,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Spartan&display=swap" rel="stylesheet">
     <!-- CSS Stylesheet -->
-    <link href="/public/stylesheets/style.css" type="text/css" rel="stylesheet">
+    <link href="/stylesheets/style.css" type="text/css" rel="stylesheet">
 </head>
 <header>
   <div id="burger-wrapper">
@@ -27,11 +27,13 @@
       </button>
 
       <div id="user-status" >
+        {{#if loggedIn}}
+        <div data-initials={{initials}}></div>
+        <a href="/auth/logout"></a><button class="btn default">Logout</button></a>
+        {{else}}
         <span id="user-"class="bi bi-person-circle"></span>
         <button class="btn default">Login</button>
-        <div data-initials="TP"></div>
-        <button class="btn default">Logout</button>
-        {{!-- <ion-icon name="cart-outline" size="large" style="padding-top: 10px"></ion-icon> --}}
+        {{/if}}
         <i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i>
       </div>
     </div>
@@ -41,20 +43,19 @@
 <body>
   <div class='form'>
     <div id='order-form-wrapper'>
-    <h1>Confirm Delete</h1>
+    <h1> Confirm Delete</h1>
       <div class="card" style="width: 24rem;">
   {{!-- <img src="..." class="card-img-top" alt="..."> --}}
   <div class="card-body">
     <h5 class="card-title">Order</h5>
       <div id="user-status" >
-        {{#if loggedIn}}
-        <div data-initials={{initials}}></div>
-        <button class="btn default">Logout</button>
-        {{else}}
-        <span id="user-"class="bi bi-person-circle"></span>
-        <button class="btn default">Login</button>
+        {{#if order}}
+          {{> deleteDIV order}}
         {{/if}}
-        <i class="bi bi-cart3" style="font-size: 2rem; color: dimgray;"></i>
+        <a href="/users/cart" class="btn btn-secondary" style="width: 150px; margin: 15px auto; text-align: center">Go Back</a>
+        <form action="/users/delete/{{order.id}}" method="POST">
+      <input style="width: 150px; margin: 15px auto; text-align: center" type='submit' value='Remove Order' class="btn btn-primary" />
+      </form>
       </div>
   </div> 
 </div> 
