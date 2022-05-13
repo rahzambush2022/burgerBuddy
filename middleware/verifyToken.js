@@ -30,7 +30,7 @@ async function verifyToken(req, res, next) {
       return res.render("login", { message: "Username not found!" });
     }
     let passwordMatch;
-    passwordMatch = bcrypt.compareSync(password, user.password);
+    passwordMatch = await bcrypt.compareSync(password, user.password);
     if (!passwordMatch) {
       return res.render("login", { message: "Password not a match!" });
     }
