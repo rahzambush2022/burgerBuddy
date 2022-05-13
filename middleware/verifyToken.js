@@ -25,7 +25,9 @@ async function verifyToken(req, res, next) {
     }
 
     let user;
-    user = await User.findOne({ username: username });
+    user = await User.findOne({ username: username }).catch((err) => {
+      console.log(err);
+    });
     if (!user) {
       return res.render("login", { message: "Username not found!" });
     }
