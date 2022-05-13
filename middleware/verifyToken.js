@@ -9,16 +9,9 @@ async function verifyToken(req, res, next) {
   let { username, password } = req.body;
   let token;
   console.log("req.body: ", req.body);
-  try {
-   const user = await User.findOne({ username: username }).lean();
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-  const firstName = user.firstname;
-  const lastName = user.lastname;
-  const fullName = firstName + " " + lastName;
-  console.log("fullName: ", fullName);
 
+  const user = await User.findOne({ username: username }).lean();
+  
   try {
     if (!username || !password) {
       return res.render("login", { message: "Please complete form" });
